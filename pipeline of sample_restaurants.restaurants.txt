@@ -1,0 +1,38 @@
+[{
+$project: {
+_id: 0,
+borough: 1,
+cuisine: 1,
+grades: 1,
+name: 1
+}
+}, {
+$match: {
+cuisine: {
+$in: [
+'American',
+'Chinese',
+'Café/Coffee/Tea',
+'Pizza',
+'Italian'
+]
+},
+'grades.score': {
+$lt: 5
+},
+borough: {
+$in: [
+'Queens',
+'Staten Island',
+'Brooklyn'
+]
+}
+}
+}, {
+$group: {
+_id: '$cuisine',
+count: {
+$sum: 1
+}
+}
+}]

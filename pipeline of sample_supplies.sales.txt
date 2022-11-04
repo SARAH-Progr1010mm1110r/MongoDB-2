@@ -1,0 +1,34 @@
+[{
+$project: {
+_id: 0,
+storeLocation: 1,
+customer: 1,
+couponUsed: 1,
+purchaseMethod: 1
+}
+}, {
+$match: {
+couponUsed: true,
+purchaseMethod: 'Online',
+'customer.gender': 'F',
+'customer.age': {
+$lt: 45
+},
+storeLocation: {
+$in: [
+'London',
+'Denver'
+]
+}
+}
+}, {
+$group: {
+_id: '$storeLocation',
+avg_satisfaction: {
+$avg: '$customer.satisfaction'
+},
+num: {
+$sum: 1
+}
+}
+}]
